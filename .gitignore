@@ -1,0 +1,6 @@
+# build
+bin
+obj
+
+# vitual code
+english_tool.sln
