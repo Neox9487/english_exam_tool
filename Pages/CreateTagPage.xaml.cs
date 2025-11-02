@@ -36,8 +36,6 @@ namespace EnglishApp.Views
                 }
             );
             MessageBox.Show("Create a new tag sucessfully!");
-            if (NavigationService != null && NavigationService.CanGoBack)
-                NavigationService.GoBack();
         }
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {

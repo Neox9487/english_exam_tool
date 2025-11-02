@@ -51,8 +51,6 @@ namespace EnglishApp.Views
             );
             
             MessageBox.Show("Add a new word sucessfully!");
-            if (NavigationService != null && NavigationService.CanGoBack)
-                NavigationService.GoBack();
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
