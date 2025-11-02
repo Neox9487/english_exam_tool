@@ -1,0 +1,11 @@
+<Page x:Class="EnglishApp.Views.QuizPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="Quiz Page">
+    <Grid>
+        <TextBlock Text="This is the Quiz Page" 
+                   HorizontalAlignment="Center" 
+                   VerticalAlignment="Center" 
+                   FontSize="20"/>
+    </Grid>
+</Page>
