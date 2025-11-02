@@ -25,7 +25,7 @@
         <!-- 單字 -->
         <DataGrid x:Name="WordsDataGrid" Grid.Row="1" AutoGenerateColumns="False" ItemsSource="{Binding Words}" CanUserAddRows="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Word" Binding="{Binding English}" Width="100"/>
+                <DataGridTextColumn Header="Word" Binding="{Binding Word}" Width="100"/>
                 <DataGridTextColumn Header="Meaning" Binding="{Binding Meaning}" Width="*"/>
                 <DataGridTextColumn Header="POS" Binding="{Binding POS}" Width="100"/>
                 <DataGridTemplateColumn Header="" Width="100">

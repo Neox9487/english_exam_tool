@@ -4,7 +4,6 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using LiteDB;
-using Microsoft.VisualBasic;
 
 namespace EnglishApp.Views
 {
@@ -16,7 +15,7 @@ namespace EnglishApp.Views
 
         // Search
         private List<string> _tags = new List<string> { };
-        private List<string> _sort_options = new List<string> { "A-Z", "Z-A", "POS" };
+        private List<string> _sort_options = new List<string> { "A-Z", "Z-A", "POS", "Tags"};
         private string _keyword;
 
         public WordsPage()
@@ -33,6 +32,7 @@ namespace EnglishApp.Views
             LoadWords();
         }
 
+        // Update UI
         private void LoadTags()
         {
             _tags = new List<string> { "All" };
@@ -65,7 +65,7 @@ namespace EnglishApp.Views
             {
                 query = query.Where(w =>
                     (!string.IsNullOrEmpty(w.Word) && w.Word.Contains(_keyword, StringComparison.OrdinalIgnoreCase)) ||
-                    (!string.IsNullOrEmpty(w.ChineseMeanings) && w.ChineseMeanings.Contains(_keyword, StringComparison.OrdinalIgnoreCase)) ||
+                    (!string.IsNullOrEmpty(w.Meaning) && w.Meaning.Contains(_keyword, StringComparison.OrdinalIgnoreCase)) ||
                     (w.Tags != null && w.Tags.Any(t => t.Contains(_keyword, StringComparison.OrdinalIgnoreCase)))
                 );
             }
@@ -83,6 +83,9 @@ namespace EnglishApp.Views
                 case "POS":
                     wordList = wordList.OrderBy(w => w.POS).ToList();
                     break;
+                case "Tag":
+                    wordList = wordList.OrderBy(w => w.Tags).ToList();
+                    break;
                 default:
                     break;
             }
@@ -99,12 +102,12 @@ namespace EnglishApp.Views
 
         private void AddWordButton_Click(object sender, RoutedEventArgs e)
         {
-            
+            NavigationService.Navigate(new AddWordPage());
         }
         
         private void AddTagButton_Click(object sender, RoutedEventArgs e)
         {
-            
+            NavigationService.Navigate(new AddTagPage());
         }
 
         private void BackToMenu_Button_Click(object sender, RoutedEventArgs e)
@@ -118,7 +121,7 @@ namespace EnglishApp.Views
     {
         public int Id { get; set; }
         public string Word { get; set; }
-        public string ChineseMeanings { get; set; }
+        public string Meaning { get; set; }
         public string POS { get; set; }
         public List<string> Tags { get; set; }
     }
