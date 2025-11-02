@@ -15,7 +15,7 @@ namespace EnglishApp.Views
         private readonly ILiteCollection<TagItem> _tagsCollection;
 
         // Search
-        private List<string> _tags = new List<string> { };
+        private List<string> _tags = new List<string> {};
         private List<string> _sort_options = new List<string> { "A-Z", "Z-A", "POS", "Tags"};
         private string _keyword;
 
@@ -65,7 +65,7 @@ namespace EnglishApp.Views
 
             if (selectedTag != "All")
             {
-                query = query.Where(w => w.Tags != null && w.Tags.Contains(selectedTag));
+                query = query.Where(w => w.Tag != null && w.Tag.Contains(selectedTag));
             }
 
             if (!string.IsNullOrEmpty(_keyword))
@@ -73,7 +73,7 @@ namespace EnglishApp.Views
                 query = query.Where(w =>
                     (!string.IsNullOrEmpty(w.Word) && w.Word.Contains(_keyword, StringComparison.OrdinalIgnoreCase)) ||
                     (!string.IsNullOrEmpty(w.Meaning) && w.Meaning.Contains(_keyword, StringComparison.OrdinalIgnoreCase)) ||
-                    (w.Tags != null && w.Tags.Any(t => t.Contains(_keyword, StringComparison.OrdinalIgnoreCase)))
+                    (!string.IsNullOrEmpty(w.Tag) && w.Tag.Contains(_keyword, StringComparison.OrdinalIgnoreCase))
                 );
             }
 
@@ -91,7 +91,7 @@ namespace EnglishApp.Views
                     wordList = wordList.OrderBy(w => w.POS).ToList();
                     break;
                 case "Tag":
-                    wordList = wordList.OrderBy(w => w.Tags).ToList();
+                    wordList = wordList.OrderBy(w => w.Tag).ToList();
                     break;
                 default:
                     break;
@@ -109,7 +109,7 @@ namespace EnglishApp.Views
                 this.NavigationService.Navigated += Navigated;
             }
         }
-        
+
         private void Navigated(object sender, NavigationEventArgs e)
         {
             if (e.Content == this)
@@ -118,7 +118,11 @@ namespace EnglishApp.Views
             }
         }
 
-        // Button actions
+        // actions
+        private void SortOptionChanged(object sender, RoutedEventArgs e)
+        {
+            LoadWords();
+        }
         private void SearchButton_Click(object sender, RoutedEventArgs e)
         {
             _keyword = SearchTextBox.Text.Trim();
@@ -129,16 +133,37 @@ namespace EnglishApp.Views
         {
             NavigationService.Navigate(new AddWordPage());
         }
-        
+
         private void AddTagButton_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new CreateTagPage());
+        }
+
+        private void DeleteSelectedButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (WordsDataGrid.SelectedItem is WordItem selected)
+            {
+                int id = selected.Id;
+                string word = selected.Word;
+                bool success = _wordsCollection.Delete(id);
+                if (success)
+                {
+                    MessageBox.Show("Word '" + word + "' is deleted.");
+                    LoadWords();
+                }
+            }
         }
 
         private void BackToMenu_Button_Click(object sender, RoutedEventArgs e)
         {
             if (NavigationService != null && NavigationService.CanGoBack)
                 NavigationService.GoBack();
+        }
+
+        private void DataGrid_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+            var grid = sender as DataGrid;
+            grid.SelectedIndex = -1;
         }
     }
 
@@ -148,7 +173,7 @@ namespace EnglishApp.Views
         public string Word { get; set; }
         public string Meaning { get; set; }
         public string POS { get; set; }
-        public List<string> Tags { get; set; }
+        public string Tag { get; set; }
     }
 
     public class TagItem

@@ -21,8 +21,8 @@ namespace EnglishApp.Views
         // button actions
         private void CreateButton_Click(object sender, RoutedEventArgs e)
         {
-            var text = TagTextBox.Text.Trim();
-            var is_exist = _tagsCollection.FindOne(t => t.Tag.Equals(text, System.StringComparison.OrdinalIgnoreCase));
+            var new_tag = TagTextBox.Text.Trim();
+            var is_exist = _tagsCollection.FindOne(t => t.Tag.Equals(new_tag, System.StringComparison.OrdinalIgnoreCase));
             if (is_exist != null)
             {
                 MessageBox.Show("Tag is already existed!");
@@ -32,10 +32,10 @@ namespace EnglishApp.Views
             _tagsCollection.Insert(
                 new TagItem
                 {
-                    Tag = text
+                    Tag = new_tag
                 }
             );
-            MessageBox.Show("Create tag sucessfully!");
+            MessageBox.Show("Create a new tag sucessfully!");
             if (NavigationService != null && NavigationService.CanGoBack)
                 NavigationService.GoBack();
         }

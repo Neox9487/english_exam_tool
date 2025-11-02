@@ -13,31 +13,32 @@
         <!-- Tag查詢 排序 搜尋-->
         <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,0,0,10" VerticalAlignment="Center">
             <TextBlock Text="Tag" VerticalAlignment="Center" Margin="0,0,5,0"/>
-            <ComboBox x:Name="TagFilterComboBox"/>
+            <ComboBox x:Name="TagFilterComboBox" SelectionChanged="SortOptionChanged"/>
 
             <TextBlock Text="Sort" VerticalAlignment="Center" Margin="20,0,5,0"/>
-            <ComboBox x:Name="SortComboBox" Width="60"/>
+            <ComboBox x:Name="SortComboBox" Width="60" SelectionChanged="SortOptionChanged"/>
 
             <TextBox x:Name="SearchTextBox" Margin="20,0,0,0" VerticalAlignment="Center" Width="120"/>
             <Button Content="Search" Margin="5,0,0,0" Padding="3,2" Click="SearchButton_Click"/>
         </StackPanel>
 
         <!-- 單字 -->
-        <DataGrid x:Name="WordsDataGrid" Grid.Row="1" AutoGenerateColumns="False" ItemsSource="{Binding Words}" CanUserAddRows="False">
+        <DataGrid 
+            x:Name="WordsDataGrid" 
+            IsReadOnly="True"
+            Grid.Row="1" 
+            AutoGenerateColumns="False"
+            ItemsSource="{Binding Words}" 
+            CanUserAddRows="False"
+            CanUserSortColumns="False"
+            SelectionMode="Single"
+            SelectionUnit="FullRow"
+            HeadersVisibility="Column">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Word" Binding="{Binding Word}" Width="100"/>
                 <DataGridTextColumn Header="Meaning" Binding="{Binding Meaning}" Width="*"/>
+                <DataGridTextColumn Header="Tag" Binding="{Binding Tag}" Width="100"/>
                 <DataGridTextColumn Header="POS" Binding="{Binding POS}" Width="100"/>
-                <DataGridTemplateColumn Header="" Width="100">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Button Content="Edit" Margin="2" Padding="4,2"/>
-                                <Button Content="Delete" Margin="2" Padding="4,2"/>
-                            </StackPanel>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
          
@@ -51,6 +52,7 @@
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                 <Button Content="Add Word" Margin="5,0,0,0" Padding="6,2" Click="AddWordButton_Click"/>
                 <Button Content="Create Tag" Margin="5,0,0,0" Padding="6,2" Click="AddTagButton_Click"/>
+                <Button Content="Delete Selected" Margin="5,0,0,0" Padding="6,2" Click="DeleteSelectedButton_Click"/>
             </StackPanel>
 
             <Button Grid.Column="1"
