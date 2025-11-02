@@ -4,5 +4,5 @@
         Title="English Exam Tool"
         Height="500" Width="550"
         WindowStartupLocation="CenterScreen">
-    <Frame x:Name="MainFrame" Source="../Pages/MainPage.xaml" NavigationUIVisibility="Hidden"/>
+    <Frame x:Name="MainFrame" Source="../Pages/MenuPage.xaml" NavigationUIVisibility="Hidden"/>
 </Window>

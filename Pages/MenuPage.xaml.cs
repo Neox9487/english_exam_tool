@@ -3,9 +3,9 @@ using System.Windows.Controls;
 
 namespace EnglishApp.Views
 {
-    public partial class MainPage : Page
+    public partial class MenuPage : Page
     {
-        public MainPage()
+        public MenuPage()
         {
             InitializeComponent();
         }
