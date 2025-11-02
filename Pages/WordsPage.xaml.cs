@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Navigation;
 using LiteDB;
 
 namespace EnglishApp.Views
@@ -28,11 +29,17 @@ namespace EnglishApp.Views
             SortComboBox.ItemsSource = _sort_options;
             SortComboBox.SelectedIndex = 0;
 
+            Update();
+            this.Loaded += Page_Loaded;
+        }
+
+        // Update UI
+        private void Update()
+        {
             LoadTags();
             LoadWords();
         }
 
-        // Update UI
         private void LoadTags()
         {
             _tags = new List<string> { "All" };
@@ -89,8 +96,26 @@ namespace EnglishApp.Views
                 default:
                     break;
             }
-            
+
             WordsDataGrid.ItemsSource = wordList;
+        }
+
+        // Navigation
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (this.NavigationService != null)
+            {
+                this.NavigationService.Navigated -= Navigated;
+                this.NavigationService.Navigated += Navigated;
+            }
+        }
+        
+        private void Navigated(object sender, NavigationEventArgs e)
+        {
+            if (e.Content == this)
+            {
+                Update();
+            }
         }
 
         // Button actions
@@ -107,7 +132,7 @@ namespace EnglishApp.Views
         
         private void AddTagButton_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new AddTagPage());
+            NavigationService.Navigate(new CreateTagPage());
         }
 
         private void BackToMenu_Button_Click(object sender, RoutedEventArgs e)

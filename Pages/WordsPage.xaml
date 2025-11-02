@@ -16,7 +16,7 @@
             <ComboBox x:Name="TagFilterComboBox"/>
 
             <TextBlock Text="Sort" VerticalAlignment="Center" Margin="20,0,5,0"/>
-            <ComboBox x:Name="SortComboBox"/>
+            <ComboBox x:Name="SortComboBox" Width="60"/>
 
             <TextBox x:Name="SearchTextBox" Margin="20,0,0,0" VerticalAlignment="Center" Width="120"/>
             <Button Content="Search" Margin="5,0,0,0" Padding="3,2" Click="SearchButton_Click"/>
@@ -50,7 +50,7 @@
 
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                 <Button Content="Add Word" Margin="5,0,0,0" Padding="6,2" Click="AddWordButton_Click"/>
-                <Button Content="Add Tag" Margin="5,0,0,0" Padding="6,2" Click="AddTagButton_Click"/>
+                <Button Content="Create Tag" Margin="5,0,0,0" Padding="6,2" Click="AddTagButton_Click"/>
             </StackPanel>
 
             <Button Grid.Column="1"
