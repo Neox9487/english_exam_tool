@@ -2,9 +2,9 @@ using System.Windows.Controls;
 
 namespace EnglishApp.Views
 {
-    public partial class QuizPage : Page
+    public partial class QuizSelectPage : Page
     {
-        public QuizPage()
+        public QuizSelectPage()
         {
             InitializeComponent();
         }

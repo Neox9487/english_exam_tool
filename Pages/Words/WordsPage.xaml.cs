@@ -134,9 +134,9 @@ namespace EnglishApp.Views
             NavigationService.Navigate(new AddWordPage());
         }
 
-        private void AddTagButton_Click(object sender, RoutedEventArgs e)
+        private void ManageTagsButton_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new CreateTagPage());
+            NavigationService.Navigate(new ManageTagsPage());
         }
 
         private void DeleteSelectedButton_Click(object sender, RoutedEventArgs e)

@@ -12,7 +12,7 @@ namespace EnglishApp.Views
 
         private void Quiz_Button_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new QuizPage());
+            NavigationService.Navigate(new QuizSelectPage());
         }
 
         private void Words_Button_Click(object sender, RoutedEventArgs e)
